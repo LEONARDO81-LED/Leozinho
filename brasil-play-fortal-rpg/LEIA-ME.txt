@@ -1,0 +1,31 @@
+BRASIL PLAY FORTAL RPG - SITE COM BANCO DE DADOS
+
+1) Instale o Node.js (nodejs.org, versao 18 ou mais nova).
+2) Windows: de dois cliques em iniciar.bat   |   Linux/Mac: ./iniciar.sh (ou: node server.js)
+3) Abra http://localhost:3000
+
+Login inicial de admin: admin / admin123  (TROQUE em Painel Admin > Senha)
+
+ONDE FICAM OS DADOS
+- data/db.json  -> contas (senhas criptografadas), compras, denuncias, chat, eventos, playlist. FACA BACKUP DESSA PASTA.
+- public/uploads -> musicas enviadas pelo painel.
+
+COLOCAR ONLINE
+Use uma VPS ou hospedagem com Node.js (ou rode no mesmo PC/VPS do servidor SA-MP).
+Porta diferente: PORT=80 node server.js
+Para HTTPS use Nginx/Caddy/Cloudflare na frente.
+
+MUSICAS
+Painel Admin > Musicas: envie um arquivo mp3 ou cole um link direto de audio.
+
+IMPORTANTE
+- A loja esta em modo demonstracao (moedas sem pagamento real). Para cobrar de verdade, integre Mercado Pago/PIX.
+- Para o login valer tambem dentro do jogo, o gamemode precisa ler o mesmo banco (hoje e um arquivo JSON; para o SA-MP o ideal e migrar para MySQL).
+
+BANCO NEON (POSTGRES) - PARA HOSPEDAGEM GRATIS
+- Sem DATABASE_URL o site guarda tudo em data/db.json. Com DATABASE_URL (arquivo .env.local ou variavel de ambiente) ele guarda no Postgres da Neon.
+- No seu PC, dentro desta pasta:  npm i -g neon@latest  ->  neon login  ->  neon deploy  (grava a conexao em .env.local)
+- Depois:  npm install  e  node server.js  (deve aparecer "Banco: Neon/Postgres")
+- Na Render: crie um Web Service (Build: npm install | Start: npm start) e coloque DATABASE_URL em Environment.
+- NUNCA publique o .env.local nem a DATABASE_URL.
+- Na hospedagem com Neon o envio de mp3 fica desativado (o disco da Render grátis é apagado); use link direto de áudio.
